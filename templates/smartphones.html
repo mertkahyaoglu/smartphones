@@ -1,0 +1,35 @@
+$def with(data)
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 smartphones">
+    <h3>Smartphones</h3>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 phonelist">
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Screen</th>
+                    <th>Features</th>
+                    <th>Camera</th>
+                    <th>Battery</th>
+                </tr>
+            </thead>
+            <tbody>
+                $for item in data: 
+                    $ model = item["model"].replace(' ','_').lower()
+                    <tr>
+                        <td valign="middle">
+                            <a href="/smartphone/$model/$loop.index0">
+                                <img src="$item['img']" class="img-responsive" />
+                                <div class="model">
+                                    $item['brand']<br>$item['model']
+                                </div>
+                            </a>
+                        </td>
+                        <td>$item['display']</td>
+                        <td>$item['chipset']</td>
+                        <td>$item['camera']</td>
+                        <td>$item['battery']</td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
