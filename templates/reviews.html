@@ -1,0 +1,12 @@
+$def with(data)
+$var url: /reviews
+$var title : Reviews
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
+    <h3>Reviews</h3>
+    <ul class="review-menu">
+    	$for i, item in enumerate(data):
+    	$ i += 1
+    		<li><a href="/review/$item['permalink']"><span class="index">$i.</span> $item['title']</a></li>
+    </ul>
+</div>
