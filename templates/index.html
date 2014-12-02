@@ -1,110 +1,58 @@
+$def with(smartphones, reviews)
+$var url : /
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lastfour">
-    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-        <a href="">
-            <img src="static/img/1.jpg" class="img-responsive" />
-            <div class="phonetitle">
-                Nexus 6
+    $for item in smartphones: 
+        $if item.get('featured'):
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                <a href="/smartphone/$item['model']/$loop.index0">
+                    <img src="$item.get('featuredImage')" class="img-responsive" />
+                    <div class="phonetitle">
+                        $item['brand'] $item['model']
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-        <a href="">
-            <img src="static/img/2.jpg" class="img-responsive" />
-            <div class="phonetitle">
-                Galaxy Note Edge
-            </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-        <a href="">
-            <img src="static/img/3.jpg" class="img-responsive" />
-            <div class="phonetitle">
-                Iphone 6
-            </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-        <a href="">
-            <img src="static/img/4.jpg" class="img-responsive" />
-            <div class="phonetitle">
-                Xperia Z3
-            </div>
-        </a>
-    </div>
 </div>
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
 
     <!-- news -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
-        <a href=""><h4>news</h4></a>
-        <div class="news">
-            <a href=""><img src="static/img/news.jpg" class="img-responsive"></a>
-            <a href=""><h5>Iphone 6</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod, ipsum dolor sit amet.</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news1.jpg" class="img-responsive"></a>
-            <a href=""><h5>Galaxy Note 4</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news2.jpg" class="img-responsive"></a>
-            <a href=""><h5>LG G3</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news3.jpg" class="img-responsive"></a>
-            <a href=""><h5>Nexus 6</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
+        <a href="/news"><h4>news</h4></a>
+        $for item in smartphones: 
+            <div class="news">
+                <a href="/smartphone/$item['model']/$loop.index0">
+                    <img src="$item['img']" class="img-responsive">
+                </a>
+                <a href="/smartphone/$item['model']/$loop.index0"><h5>$item["brand"] $item["model"]</h5></a>
+                <p>$item["content"]</p>
+            </div>
     </div>
 
     <!-- reviews -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
-        <a href=""><h4>reviews</h4></a>
-        <div class="review">
-            <a href="">
-                <img src="static/img/review1.jpg" class="img-responsive">
-                <div class="reviewtitle">
-                    Motorola Nexus 6 Review
-                </div>
-            </a>
-            <p>Nexus 6 by Motorola marks a shift in market positioning for Google’s smartphone lineup. Whereas the duo of LG-made devices that precede it cut back on certain features to stay attractively</p>
-        </div>
-        <div class="review">
-            <a href="">
-                <img src="static/img/review2.jpg" class="img-responsive">
-                <div class="reviewtitle">
-                    Iphone 6 Plus vs Note 4
-                </div>
-            </a>
-            <p>Samsung's release cadence dictates that the Galaxy Note is the H2 flagship, keen to assert its superiority over an already feature-rich Galaxy S. iPhones come once a year, even the first-time iPhone 6 Plus phablet.</p>
-        </div>
+        <a href="/reviews"><h4>reviews</h4></a>
+        $for item in reviews: 
+            <div class="review">
+                <a href="/review/$item['permalink']">
+                    <img src="$item['img']" class="img-responsive">
+                    <div class="reviewtitle">
+                        $item['title']
+                    </div>
+                </a>
+                <p>$item['review']</p>
+            </div>
     </div>
 
     <!-- populars -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
-        <a href=""><h4>populars</h4></a>
-        <div class="news">
-            <a href=""><img src="static/img/news.jpg" class="img-responsive"></a>
-            <a href=""><h5>Iphone 6</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod, ipsum dolor sit amet.</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news1.jpg" class="img-responsive"></a>
-            <a href=""><h5>Galaxy Note 4</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news2.jpg" class="img-responsive"></a>
-            <a href=""><h5>LG G3</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
-        <div class="news">
-            <a href=""><img src="static/img/news3.jpg" class="img-responsive"></a>
-            <a href=""><h5>Nexus 6</h5></a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-        </div>
+        <a href="/populars"><h4>populars</h4></a>
+        $for item in smartphones: 
+            $if item.get('popular'):
+                <div class="news">
+                    <a href="/smartphone/$item['model']/$loop.index0"><img src="$item['img']" class="img-responsive"></a>
+                    <a href="/smartphone/$item['model']/$loop.index0"><h5>$item['model']</h5></a>
+                    <p>$item['content']</p>
+                </div>
     </div>
 </div>

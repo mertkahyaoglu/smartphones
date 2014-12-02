@@ -48,6 +48,12 @@ a:hover {text-decoration: none;}
 	float: left;
 	list-style: none;
 }
+
+.menu a.active {
+	color: #F6AB29;
+	background-color: rgba(84,84,84, 0.5);
+}
+
 .menu a {
     font-size:15px;
     padding:0 10px;
@@ -110,7 +116,7 @@ a:hover {text-decoration: none;}
 	padding: 10px 0;
 }
 .news img{
-	padding: 6px;
+	padding-right: 10px;
 	float: left;
 	height: 85px;
 }
@@ -123,7 +129,7 @@ a:hover {text-decoration: none;}
 }
 .news h5 {color: #4B3C23;margin: 2px 0;}
 .news h5:hover {color: #f45529}
-.news p {font-size: 13px;}
+.news p {font-size: 13px;min-height: 55px;}
 
 .review {
 	border-bottom: 1px dashed #ccc;
@@ -259,7 +265,7 @@ a:hover {text-decoration: none;}
 	padding: 0 0 10px 0;
 }
 
-.bxslider {opacity: 1}
+.bxslider {opacity: 0}
 #thumbs {margin-top: 15px;}
 #thumbs a {
 	float: left;
@@ -269,7 +275,20 @@ a:hover {text-decoration: none;}
 	padding: 10px;
 	border: 1px solid #EF9700
 }
-#thumbs img {	height: 55px;
+#thumbs img {	height: 55px;}
+
+.review-menu {
+	padding: 0;
+	margin: 0;
+}
+.review-menu li {
+	list-style: none;
+	padding: 10px 0;
+}
+.review-menu .index {color: #EF9700;}
+.review-menu a {
+	color: #777;
+	font-size: 17px;
 }
 
 @media (max-width: 767px) {

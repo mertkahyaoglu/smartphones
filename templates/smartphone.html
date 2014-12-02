@@ -1,23 +1,17 @@
 $def with (data)
+$var title : $data['brand'] $data['model']
+
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 smartphones">
     <h3>$data['brand'] - $data['model']</h3>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item-gallery">
         <ul class="bxslider">
-            <li><img src="/static/img/item-detail.jpg" class="img-responsive" /></li>
-            <li><img src="/static/img/item-detail2.jpg" class="img-responsive" /></li>
-            <li><img src="/static/img/item-detail3.jpg" class="img-responsive" /></li>
+            $for img in data['images']:
+              <li><img src="$img" class="img-responsive" /></li>
         </ul>
 
         <div id="thumbs">
-            <a data-slide-index="0" href="">
-                <img src="/static/img/item-detail.jpg" class="img-responsive" />
-            </a>
-            <a data-slide-index="1" href="">
-                <img src="/static/img/item-detail2.jpg" class="img-responsive"/>
-            </a>
-            <a data-slide-index="2" href="">
-                <img src="/static/img/item-detail3.jpg" class="img-responsive"/>
-            </a>
+            $for i, img in enumerate(data['images']):
+              <a data-slide-index="$i" href=""><img src="$img" class="img-responsive"/></a>
         </div>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 item-specs">
