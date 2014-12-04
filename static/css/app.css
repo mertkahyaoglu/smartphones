@@ -212,7 +212,7 @@ a:hover {text-decoration: none;}
 .search::-moz-placeholder { color: #fff;}
 .search:-ms-input-placeholder { color: #fff; }
 
-.smartphones {background-color: #fff;border-radius: 2px;padding: 0 15px 15px}
+.smartphones {background-color: #fff;border-radius: 2px;padding: 0 15px 15px;min-height: 550px}
 .smartphones h3{
 	border-bottom: 2px solid #EF9700;
 	margin-bottom: 15px;
