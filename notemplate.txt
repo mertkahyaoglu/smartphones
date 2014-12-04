@@ -1,2 +1,0 @@
-- created with Bootstrap
-- image slider: jquery.bxslider
