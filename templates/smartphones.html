@@ -16,20 +16,20 @@ $var title: List of smartphones
                 </tr>
             </thead>
             <tbody>
-                $for item in data: 
+                $for item in data:
                     $ model = item["model"].replace(' ','_').lower()
                     <tr>
                         <td valign="middle">
-                            <a href="/smartphone/$model/$loop.index0">
-                                <img src="$item['img']" class="img-responsive" />
+                            <a href="/smartphone/$model/$item['id']">
+                                <img src="$item['imagemini']" class="img-responsive" />
                                 <div class="model">
                                     $item['brand']<br>$item['model']
                                 </div>
                             </a>
                         </td>
-                        <td>$item['display']</td>
-                        <td>$item['chipset']</td>
-                        <td>$item['camera']</td>
+                        <td>$item['size']</td>
+                        <td>$item['cpu']</td>
+                        <td>$item['primary']</td>
                         <td>$item['battery']</td>
                     </tr>
             </tbody>

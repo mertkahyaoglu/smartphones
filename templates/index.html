@@ -2,16 +2,15 @@ $def with(smartphones, reviews)
 $var url : /
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lastfour">
-    $for item in smartphones: 
-        $if item.get('featured'):
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-                <a href="/smartphone/$item['model']/$loop.index0">
-                    <img src="$item.get('featuredImage')" class="img-responsive" />
-                    <div class="phonetitle">
+    $for item in smartphones:
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+            <a href="/smartphone/$item['model']/$item['id']">
+                <img src="$item['featured']" class="img-responsive" />
+                <div class="phonetitle">
                         $item['brand'] $item['model']
-                    </div>
-                </a>
-            </div>
+                </div>
+            </a>
+        </div>
 </div>
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
@@ -19,12 +18,12 @@ $var url : /
     <!-- news -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
         <a href="/news"><h4>news</h4></a>
-        $for item in smartphones: 
+        $for item in smartphones:
             <div class="news">
-                <a href="/smartphone/$item['model']/$loop.index0">
-                    <img src="$item['img']" class="img-responsive">
+                <a href="/smartphone/$item['model']/$item['id']">
+                    <img src="$item['imagemini']" class="img-responsive">
                 </a>
-                <a href="/smartphone/$item['model']/$loop.index0"><h5>$item["brand"] $item["model"]</h5></a>
+                <a href="/smartphone/$item['model']/$item['id']"><h5>$item["brand"] $item["model"]</h5></a>
                 <p>$item["content"]</p>
             </div>
     </div>
@@ -32,10 +31,10 @@ $var url : /
     <!-- reviews -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
         <a href="/reviews"><h4>reviews</h4></a>
-        $for item in reviews: 
+        $for item in reviews:
             <div class="review">
                 <a href="/review/$item['permalink']">
-                    <img src="$item['img']" class="img-responsive">
+                    <img src="$item['image']" class="img-responsive">
                     <div class="reviewtitle">
                         $item['title']
                     </div>
@@ -47,11 +46,11 @@ $var url : /
     <!-- populars -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
         <a href="/populars"><h4>populars</h4></a>
-        $for item in smartphones: 
+        $for item in smartphones:
             $if item.get('popular'):
                 <div class="news">
-                    <a href="/smartphone/$item['model']/$loop.index0"><img src="$item['img']" class="img-responsive"></a>
-                    <a href="/smartphone/$item['model']/$loop.index0"><h5>$item['model']</h5></a>
+                    <a href="/smartphone/$item['model']/$item['id']"><img src="$item['img']" class="img-responsive"></a>
+                    <a href="/smartphone/$item['model']/$item['id']"><h5>$item['model']</h5></a>
                     <p>$item['content']</p>
                 </div>
     </div>
