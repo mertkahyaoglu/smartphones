@@ -17,7 +17,7 @@ $var title: List of smartphones
             </thead>
             <tbody>
                 $for item in data:
-                    $ model = item["model"].replace(' ','_').lower()
+                    $ model = item["model"].replace(' ','-').lower()
                     <tr>
                         <td valign="middle">
                             <a href="/smartphone/$model/$item['id']">
@@ -30,7 +30,7 @@ $var title: List of smartphones
                         <td>$item['size']</td>
                         <td>$item['cpu']</td>
                         <td>$item['primary']</td>
-                        <td>$item['battery']</td>
+                        <td>$item['battery'] mAh</td>
                     </tr>
             </tbody>
         </table>

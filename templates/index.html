@@ -3,14 +3,16 @@ $var url : /
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lastfour">
     $for item in smartphones:
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-            <a href="/smartphone/$item['model']/$item['id']">
-                <img src="$item['featured']" class="img-responsive" />
-                <div class="phonetitle">
-                        $item['brand'] $item['model']
-                </div>
-            </a>
-        </div>
+        $if item['featured'] != None:
+            $ model = item["model"].replace(' ','-').lower()
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                <a href="/smartphone/$model/$item['id']">
+                    <img src="$item['featured']" class="img-responsive" />
+                    <div class="phonetitle">
+                            $item['brand'] $item['model']
+                    </div>
+                </a>
+            </div>
 </div>
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
@@ -19,11 +21,12 @@ $var url : /
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
         <a href="/news"><h4>news</h4></a>
         $for item in smartphones:
+            $ model = item["model"].replace(' ','-').lower()
             <div class="news">
-                <a href="/smartphone/$item['model']/$item['id']">
+                <a href="/smartphone/$model/$item['id']">
                     <img src="$item['imagemini']" class="img-responsive">
                 </a>
-                <a href="/smartphone/$item['model']/$item['id']"><h5>$item["brand"] $item["model"]</h5></a>
+                <a href="/smartphone/$model/$item['id']"><h5>$item["brand"] $item["model"]</h5></a>
                 <p>$item["content"]</p>
             </div>
     </div>
@@ -48,9 +51,10 @@ $var url : /
         <a href="/populars"><h4>populars</h4></a>
         $for item in smartphones:
             $if item.get('popular'):
+                $ model = item["model"].replace(' ','-').lower()
                 <div class="news">
-                    <a href="/smartphone/$item['model']/$item['id']"><img src="$item['img']" class="img-responsive"></a>
-                    <a href="/smartphone/$item['model']/$item['id']"><h5>$item['model']</h5></a>
+                    <a href="/smartphone/$model/$item['id']"><img src="$item['img']" class="img-responsive"></a>
+                    <a href="/smartphone/$model/$item['id']"><h5>$item['model']</h5></a>
                     <p>$item['content']</p>
                 </div>
     </div>

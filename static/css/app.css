@@ -3,7 +3,7 @@ body{
 	font-family: "opensans", sans-serif;
 	color: #777;
 }
-h1, h2, h3, h4 { 
+h1, h2, h3, h4 {
 	color: #EF9700;
 	margin: 15px 0;
 }
@@ -289,6 +289,10 @@ a:hover {text-decoration: none;}
 .review-menu a {
 	color: #777;
 	font-size: 17px;
+}
+
+.brand-phone-list h5 {
+	text-align: center;
 }
 
 @media (max-width: 767px) {

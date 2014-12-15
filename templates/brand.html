@@ -1,0 +1,16 @@
+$def with(data)
+$var url: /brand
+$var title: $data[0].brand
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
+    <h3>$data[0].brand</h3>
+        $for s in data:
+            $ model = s.model.replace(' ','-').lower()
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 brand-phone-list">
+                <a href="/smartphone/$model/$s.id">
+                    <img src="$s.imagemini" class="img-responsive">
+                </a>
+                <h5>$s.brand $s.model</h5>
+            </div>
+    </ul>
+</div>

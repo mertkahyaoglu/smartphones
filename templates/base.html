@@ -1,7 +1,4 @@
 $def with (content)
-
-$ menu = [ ("/", "home"), ("/smartphones", "smartphones"), ("/news", "news"), ("/populars", "populars"), ("/reviews", "reviews"), ("/about", "about") ]
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,7 +16,7 @@ $ menu = [ ("/", "home"), ("/smartphones", "smartphones"), ("/news", "news"), ("
         <![endif]-->
     </head>
     <body>
-      
+
         <div class="container-fluid">
             <div class="content">
 
@@ -64,12 +61,8 @@ $ menu = [ ("/", "home"), ("/smartphones", "smartphones"), ("/news", "news"), ("
                             </form>
                             <h4>Brands</h4>
                             <ul class="brands">
-                                <li><a href="">Apple</a></li>
-                                <li><a href="">Samsung</a></li>
-                                <li><a href="">Sony</a></li>
-                                <li><a href="">HTC</a></li>
-                                <li><a href="">LG</a></li>
-                                <li><a href="">Nexus</a></li>
+                                $for b in brands:
+                                    <li><a href="/brand/$b.id">$b.brand</a></li>
                             </ul>
                         </div>
                     </div>
