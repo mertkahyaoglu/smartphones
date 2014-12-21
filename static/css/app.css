@@ -295,6 +295,21 @@ a:hover {text-decoration: none;}
 	text-align: center;
 }
 
+.btn-submit {
+	background-color:#EF9700;
+	color: #fff;
+	padding: 0 30px;
+	height:25px;
+	border:none;
+	margin: 10px 0;
+}
+
+label {padding-right:10px;}
+
+.btn-submit:hover {
+	background-color: #F6AB29
+}
+
 @media (max-width: 767px) {
     .logo h3 {text-align: center;}
     .menu {float:none;}

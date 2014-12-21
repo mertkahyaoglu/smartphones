@@ -53,7 +53,7 @@ $var url : /
             $if item.get('popular'):
                 $ model = item["model"].replace(' ','-').lower()
                 <div class="news">
-                    <a href="/smartphone/$model/$item['id']"><img src="$item['img']" class="img-responsive"></a>
+                    <a href="/smartphone/$model/$item['id']"><img src="$item['imagemini']" class="img-responsive"></a>
                     <a href="/smartphone/$model/$item['id']"><h5>$item['model']</h5></a>
                     <p>$item['content']</p>
                 </div>
