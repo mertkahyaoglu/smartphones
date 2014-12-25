@@ -1,10 +1,24 @@
-$def with(data)
+$def with(smartphones, brands, currentpage, pages)
 $var url: /smartphones
 $var title: List of smartphones
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 smartphones">
     <h3>Smartphones</h3>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 phonelist">
+        <form action="" method="get" id="form-brand">
+            <label for="smartphones_by_brand">Filter by brands:</label>
+            <select name="smartphones_by_brand">
+              <option value="all">All</option>
+              $for b in brands:
+              <option value="$b.id">$b.brand</option>
+            </select> <input type="submit" class="btn-submit" value="GET">
+        </form>
+        <ul class="pagination">
+            $for page in range(pages):
+                $ next = page + 1
+                $if next == currentpage: <li><a class="active" href="?page=$next">$next</a></li>
+                $else: <li><a href="?page=$next">$next</a></li>
+        </ul>
         <table>
             <thead>
                 <tr>
@@ -16,7 +30,7 @@ $var title: List of smartphones
                 </tr>
             </thead>
             <tbody>
-                $for item in data:
+                $for item in smartphones:
                     $ model = item["model"].replace(' ','-').lower()
                     <tr>
                         <td valign="middle">

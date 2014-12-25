@@ -301,13 +301,44 @@ a:hover {text-decoration: none;}
 	padding: 0 30px;
 	height:25px;
 	border:none;
-	margin: 10px 0;
 }
 
 label {padding-right:10px;}
 
 .btn-submit:hover {
 	background-color: #F6AB29
+}
+
+#addsmartphone table {
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+.wrong {
+	padding-left:10px;
+}
+
+.adminpanel {
+	margin-top:15px;
+	padding: 15px;
+	background-color: #efefef;
+	border-radius: 4px;
+}
+
+.adminpanel a {
+	color: #EF9700;
+	padding:5px 0;
+	font-size:16px
+}
+
+#form-brand {margin:10px 0 20px 0;float:left}
+.pagination {float:right;margin:10px 0 20px 0;}
+.pagination a{
+	color: #EF9700 !important;
+}
+.pagination a.active {
+	background-color:#F6AB29;
+	color: #fff !important;
 }
 
 @media (max-width: 767px) {

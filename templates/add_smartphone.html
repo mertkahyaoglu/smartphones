@@ -1,10 +1,11 @@
 $def with(form)
-$var url: /add_brand
-$var title : Add a brand
+$var url: /add_smartphone
+$var title : Add a smartphone
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
   <h3>Add a smartphone</h3>
-  <form name="addsmartphone" method="post">
+  <form name="addsmartphone" enctype="multipart/form-data" method="post" id="addsmartphone">
     $:form
+    <button type="submit" class="btn-submit">Add</button>
   </form>
 </div>

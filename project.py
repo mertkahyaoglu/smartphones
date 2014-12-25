@@ -46,10 +46,20 @@ def clean_str(input_str):
    result = " ".join(words)
    return(result)
 
+def is_float(input_str):
+  try:
+    result = float(input_str)
+    return True
+  except ValueError:
+    return False
+
+def get_slices(page, pagesize):
+    return (pagesize * (page - 1)), (pagesize * page)
+
 
 class index:
     def GET(self):
-        smartphones_data = list(db.query("SELECT * FROM smartphones AS s, brands AS b WHERE b.id = s.id"))
+        smartphones_data = list(db.query("SELECT * FROM smartphones AS s, brands AS b WHERE b.id = s.id ORDER BY released DESC LIMIT 5"))
         reviews_data = list(db.select("reviews"))
         return render.index(smartphones_data, reviews_data)
 
@@ -64,22 +74,37 @@ class search:
 
 class smartphones:
     def GET(self):
-        smartphones_data = list(db.query("SELECT * FROM smartphones AS s, brands AS b WHERE b.id = s.bid"))
-        return render.smartphones(smartphones_data)
+        inp = web.input()
+
+        """Filtering"""
+        sfilter = inp.get("smartphones_by_brand", None)
+        if sfilter == None or sfilter == "all":
+            smartphones_data = list(db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid ORDER BY released DESC"))
+        else:
+            smartphones_data = list(db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid AND b.id = $sfilter ORDER BY released DESC", vars=locals()))
+        brands = db.select("brands");
+
+        """Pagination"""
+        page = int(inp.page) if hasattr(inp, 'page') else 1
+        pagesize = 4
+        totalpages = len(smartphones_data)/pagesize+1
+        start, end = get_slices(page, pagesize)
+        return render.smartphones(smartphones_data[start:end], brands, page, totalpages)
 
 class smartphone:
     def GET(self, sname, sid):
         sid = int(sid)
-        s_item = db.query("SELECT * FROM smartphones AS s, brands AS b WHERE s.id = $sid AND b.id = $sid", vars=locals())
+        s_item = db.query("SELECT * FROM smartphones AS s, brands AS b WHERE s.id = $sid AND b.id = s.bid", vars=locals())
         if s_item:
             item_images = list(db.select("images", where="sid=$sid", vars=locals()))
+            print item_images
             return render.smartphone(s_item[0], item_images)
         else: raise web.seeother('/')
 
 class add_smartphone:
     brands = list(db.select("brands"))
     brands = [ (b.id, b.brand) for b in brands ]
-
+    check_number = web.form.Validator('Enter a number', is_float)
     def check_brand_models(smartphone):
         bid = smartphone.bid
         model = clean_str(smartphone.model)
@@ -89,10 +114,20 @@ class add_smartphone:
 
     form_addsmartphone = web.form.Form(
         web.form.Dropdown('bid', brands, description="Brand"),
-        web.form.Textbox('model',
-            web.form.Validator('Enter a model!', required),
-            description="Model"),
-        web.form.Button('Add', class_="btn-submit"),
+        web.form.Textbox('model', web.form.Validator('Enter a model!', required), description="Model"),
+        web.form.Textbox('released', web.form.Validator('Enter a released date!', required), description="Released"),
+        web.form.Textbox('dimensions', web.form.Validator('Enter dimensions!', required), description="Dimensions"),
+        web.form.Textbox('weight', web.form.Validator('Enter a weight!', required), check_number, description="Weight"),
+        web.form.Textarea('display', web.form.Validator('Enter display!', required), description="Display"),
+        web.form.Textarea('power', web.form.Validator('Enter power!', required), description="Power"),
+        web.form.Textarea('camera', web.form.Validator('Enter camera!', required), description="Camera"),
+        web.form.Textarea('sensors', web.form.Validator('Enter sensors!', required), description="Sensors"),
+        web.form.Textbox('battery', web.form.Validator('Enter battery!', required), check_number, description="Battery"),
+        web.form.Textbox('colors', web.form.Validator('Enter colors!', required), description="Colors"),
+        web.form.Textarea('content', web.form.Validator('Enter a content!', required), description="Content"),
+        web.form.Checkbox('popular', description="Popular", value="0"),
+        web.form.File('imagemini', description="Image mini"),
+        web.form.File('featured', description="Featured Image"),
         validators = [ web.form.Validator("The smartphone exists", check_brand_models) ]
     )
 
@@ -104,7 +139,16 @@ class add_smartphone:
         if not form.validates():
             return render.add_smartphone(form.render())
         else:
-           new_bid = db.insert('smartphones', model=form.d.model, bid=form.d.bid)
+           imgupload = web.input(imagemini={})
+           filedir = 'static/img'
+           if 'imagemini' in imgupload:
+              filepath=imgupload.imagemini.filename.replace('\\','/')
+              filename=filepath.split('/')[-1]
+              fout = open(filedir +'/'+ filename,'w')
+              fout.write(imgupload.imagemini.file.read())
+              fout.close()
+           form.value.imagemini = "/static/img/"+filename
+           new_bid = db.insert('smartphones', **form.value)
            raise web.seeother('/smartphone/%s/%d' % (form.d.model.replace(" ", "-"), new_bid))
 
 class add_brand:
@@ -145,7 +189,7 @@ class about:
 
 class news:
     def GET(self):
-        smartphones_data = list(db.query("SELECT * FROM smartphones AS s, brands AS b WHERE b.id = s.bid order by s.released DESC limit 5"))
+        smartphones_data = db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid order by s.released DESC limit 5")
         return render.news(smartphones_data)
 
 class reviews:
@@ -173,7 +217,7 @@ class brand:
 
 class populars:
     def GET(self):
-        smartphones_data = list(db.query("SELECT * FROM smartphones AS s, brands AS b WHERE b.id = s.bid and s.popular = 1"))
+        smartphones_data = db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid and s.popular = 1")
         return render.populars(smartphones_data)
 
 if __name__ == "__main__":
