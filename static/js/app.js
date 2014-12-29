@@ -5,4 +5,7 @@ $(document).ready(function() {
 	});
 
 	$('.bxslider').animate({opacity: 1}, 500);
+
+	$( "#datepicker" ).datepicker();
+	$( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");  
 });

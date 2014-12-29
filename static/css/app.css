@@ -7,6 +7,7 @@ h1, h2, h3, h4 {
 	color: #EF9700;
 	margin: 15px 0;
 }
+#ui-datepicker-div {font-size:14px}
 h1:hover, h2:hover, h3:hover, h4:hover {color: #f45529}
 a:hover {text-decoration: none;}
 .nopad {padding: 0 !important}

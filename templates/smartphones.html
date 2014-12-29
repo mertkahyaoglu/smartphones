@@ -14,7 +14,7 @@ $var title: List of smartphones
             </select> <input type="submit" class="btn-submit" value="GET">
         </form>
         <ul class="pagination">
-            $for page in range(pages):
+            $for page in range(pages+1):
                 $ next = page + 1
                 $if next == currentpage: <li><a class="active" href="?page=$next">$next</a></li>
                 $else: <li><a href="?page=$next">$next</a></li>

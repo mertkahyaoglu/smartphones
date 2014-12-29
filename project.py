@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import web
 
 urls = (
@@ -82,12 +83,12 @@ class smartphones:
             smartphones_data = list(db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid ORDER BY released DESC"))
         else:
             smartphones_data = list(db.query("SELECT s.model, s.display, s.power, s.battery, s.camera, s.id, b.brand, s.imagemini FROM smartphones AS s, brands AS b WHERE b.id = s.bid AND b.id = $sfilter ORDER BY released DESC", vars=locals()))
-        brands = db.select("brands");
+        brands = db.select("brands", order="brand");
 
         """Pagination"""
         page = int(inp.page) if hasattr(inp, 'page') else 1
         pagesize = 4
-        totalpages = len(smartphones_data)/pagesize+1
+        totalpages = len(smartphones_data)/pagesize
         start, end = get_slices(page, pagesize)
         return render.smartphones(smartphones_data[start:end], brands, page, totalpages)
 
@@ -102,9 +103,10 @@ class smartphone:
         else: raise web.seeother('/')
 
 class add_smartphone:
-    brands = list(db.select("brands"))
+    brands = list(db.select("brands", order="brand"))
     brands = [ (b.id, b.brand) for b in brands ]
     check_number = web.form.Validator('Enter a number', is_float)
+
     def check_brand_models(smartphone):
         bid = smartphone.bid
         model = clean_str(smartphone.model)
@@ -115,7 +117,7 @@ class add_smartphone:
     form_addsmartphone = web.form.Form(
         web.form.Dropdown('bid', brands, description="Brand"),
         web.form.Textbox('model', web.form.Validator('Enter a model!', required), description="Model"),
-        web.form.Textbox('released', web.form.Validator('Enter a released date!', required), description="Released"),
+        web.form.Textbox('released', web.form.Validator('Enter a released date!', required), description="Released", id="datepicker"),
         web.form.Textbox('dimensions', web.form.Validator('Enter dimensions!', required), description="Dimensions"),
         web.form.Textbox('weight', web.form.Validator('Enter a weight!', required), check_number, description="Weight"),
         web.form.Textarea('display', web.form.Validator('Enter display!', required), description="Display"),
@@ -140,14 +142,14 @@ class add_smartphone:
             return render.add_smartphone(form.render())
         else:
            imgupload = web.input(imagemini={})
-           filedir = 'static/img'
-           if 'imagemini' in imgupload:
+           filedir = "static/img"
+           if imgupload.imagemini.filename != "":
               filepath=imgupload.imagemini.filename.replace('\\','/')
               filename=filepath.split('/')[-1]
-              fout = open(filedir +'/'+ filename,'w')
+              fout = open(filedir +'/'+ filename,'wb')
               fout.write(imgupload.imagemini.file.read())
               fout.close()
-           form.value.imagemini = "/static/img/"+filename
+              form.value.imagemini = "/static/img/"+filename
            new_bid = db.insert('smartphones', **form.value)
            raise web.seeother('/smartphone/%s/%d' % (form.d.model.replace(" ", "-"), new_bid))
 
