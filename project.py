@@ -93,14 +93,49 @@ class smartphones:
         return render.smartphones(smartphones_data[start:end], brands, page, totalpages)
 
 class smartphone:
+    def userExists(comment):
+        user = list(db.query("SELECT username FROM comments WHERE username=$username", vars={'username': comment.username}))
+        print user
+        return len(user) < 1
+
+    form_comment = web.form.Form(
+        web.form.Textbox('username', web.form.Validator('Enter a name!', required), description="Name"),
+        web.form.Textarea('comment', web.form.Validator('Enter a comment!', required), description="Comment", rows=4),
+        web.form.Hidden('sid'),
+        validators = [ web.form.Validator("Username exists", userExists) ]
+    )
+
     def GET(self, sname, sid):
         sid = int(sid)
         s_item = db.query("SELECT * FROM smartphones AS s, brands AS b WHERE s.id = $sid AND b.id = s.bid", vars=locals())
         if s_item:
             item_images = list(db.select("images", where="sid=$sid", vars=locals()))
-            print item_images
-            return render.smartphone(s_item[0], item_images)
+            comments = db.select("comments", where="sid=$sid", vars=locals())
+            return render.smartphone(s_item[0], item_images, comments, self.form_comment.render())
         else: raise web.seeother('/')
+
+    def POST(self, sname, sid):
+        sid = int(sid)
+        s_item = db.query("SELECT * FROM smartphones AS s, brands AS b WHERE s.id = $sid AND b.id = s.bid", vars=locals())
+        if s_item:
+            item_images = list(db.select("images", where="sid=$sid", vars=locals()))
+        else: raise web.seeother('/')
+
+        inp = web.input()
+        name = inp.get("username")
+        comment = inp.get("comment")
+        form = self.form_comment()
+        if form.validates():
+            form.value.sid = sid
+            form.value.username = clean_str(form.value.username)
+            db.insert("comments", **form.value)
+        else:
+            comments = db.select("comments", where="sid=$sid", vars=locals())
+            return render.smartphone(s_item[0], item_images, comments, form.render())
+        comments = db.select("comments", where="sid=$sid", vars=locals())
+        return render.smartphone(s_item[0], item_images, comments, self.form_comment.render())
+
+
 
 class add_smartphone:
     brands = list(db.select("brands", order="brand"))

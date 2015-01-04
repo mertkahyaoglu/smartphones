@@ -1,66 +1,88 @@
-$def with (data, images)
+$def with (data, images, comments, commentform)
 $var title : $data['brand'] $data['model']
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 smartphones">
-    <h3>$data['brand'] - $data['model']</h3>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item-gallery">
-        <ul class="bxslider">
-            $for img in images:
-              <li><img src="$img['image']" class="img-responsive" /></li>
-        </ul>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h3>$data['brand'] - $data['model']</h3>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 item-gallery">
+          <ul class="bxslider">
+              $for img in images:
+                <li><img src="$img['image']" class="img-responsive" /></li>
+          </ul>
 
-        <div id="thumbs">
-            $for i, img in enumerate(images):
-              <a data-slide-index="$i" href=""><img src="$img['image']" class="img-responsive"/></a>
-        </div>
+          <div id="thumbs">
+              $for i, img in enumerate(images):
+                <a data-slide-index="$i" href=""><img src="$img['image']" class="img-responsive"/></a>
+          </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 item-specs">
+          <table style="width:100%">
+              <tr>
+                <th>Released</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['released']</td>
+              </tr>
+              <tr>
+                <th>Dimensions</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['dimensions']</td>
+              </tr>
+              <tr>
+                <th>Weight</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['weight'] g</td>
+              </tr>
+              <tr>
+                <th>Display</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['display']</td>
+              </tr>
+              <tr>
+                <th>Power</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['power']</td>
+              </tr>
+              <tr>
+                <th>Camera</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['camera']</td>
+              </tr>
+              <tr>
+                <th>Sensors</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['sensors']</td>
+              </tr>
+              <tr>
+                <th>Battery</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['battery'] mAh</td>
+              </tr>
+              <tr>
+                <th>Colors</th>
+                <td>&nbsp;:&nbsp;</td>
+                <td>$data['colors']</td>
+              </tr>
+          </table>
+      </div>
     </div>
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 item-specs">
-        <table style="width:100%">
-            <tr>
-              <th>Released</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['released']</td>
-            </tr>
-            <tr>
-              <th>Dimensions</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['dimensions']</td>
-            </tr>
-            <tr>
-              <th>Weight</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['weight'] g</td>
-            </tr>
-            <tr>
-              <th>Display</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['display']</td>
-            </tr>
-            <tr>
-              <th>Power</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['power']</td>
-            </tr>
-            <tr>
-              <th>Camera</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['camera']</td>
-            </tr>
-            <tr>
-              <th>Sensors</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['sensors']</td>
-            </tr>
-            <tr>
-              <th>Battery</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['battery'] mAh</td>
-            </tr>
-            <tr>
-              <th>Colors</th>
-              <td>&nbsp;:&nbsp;</td>
-              <td>$data['colors']</td>
-            </tr>
-        </table>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+      <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+          <h4>Comments</h4>
+          $if len(comments):
+            $for c in comments:
+              <div class="comment">
+                <h5>$c.username</h5>
+                <p>$c.comment</p>
+              </div>
+          $else:
+            No comment yet!
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+        <h4>Write your comment!</h4>
+          <form id="commentform" action="#" method="post">
+            $:commentform
+            <button type="submit" class="btn-submit" style="margin-top:10px;float:right">Send</button>
+          </form>
+      </div>
     </div>
 </div>
