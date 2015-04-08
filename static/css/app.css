@@ -298,6 +298,10 @@ a:hover {text-decoration: none;}
 	font-size: 17px;
 }
 
+.brand-phone-list {
+	min-height: 250px;
+}
+
 .brand-phone-list h5 {
 	text-align: center;
 }

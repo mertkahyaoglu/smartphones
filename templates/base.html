@@ -60,14 +60,10 @@ $def with (content)
                             <form action="/search" method="get">
                                 <input class="search" name="search" placeholder="Search a model" />
                             </form>
-                            <div class="adminpanel">
-                                <a href="/add_brand">Add a brand</a><br>
-                                <a href="/add_smartphone">Add a smartphone</a>
-                            </div>
                             <h4>Brands</h4>
                             <ul class="brands">
                                 $for b in brands:
-                                    <li><a href="/brand/$b.id">$b.brand</a></li>
+                                    <li><a href="/brand/$b">$b</a></li>
                             </ul>
                         </div>
                     </div>

@@ -4,13 +4,16 @@ $var title: Search
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 maincontent">
     <h3>Results</h3>
-    $for s in results:
-    $ model = s.model.replace(' ','-').lower()
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 brand-phone-list">
-        <a href="/smartphone/$model/$s.id">
-            <img src="$s.imagemini" class="img-responsive">
-        </a>
-        <h5>$s.brand $s.model</h5>
-    </div>
+    $if len(results) > 0:
+      $for s in results:
+          $ model = s['model'].replace(' ','-').lower()
+          <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 brand-phone-list">
+              <a href="/smartphone/$model/$s['id']">
+                  <img src="$s['imagemini']" class="img-responsive">
+              </a>
+              <h5>$s['brand'] $s['model']</h5>
+          </div>
+    $else:
+      <p>No result!</p>
 </ul>
 </div>

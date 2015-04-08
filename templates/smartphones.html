@@ -10,7 +10,7 @@ $var title: List of smartphones
             <select name="smartphones_by_brand">
               <option value="all">All</option>
               $for b in brands:
-              <option value="$b.id">$b.brand</option>
+              <option value="$b">$b</option>
             </select> <input type="submit" class="btn-submit" value="GET">
         </form>
         <ul class="pagination">
