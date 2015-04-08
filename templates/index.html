@@ -20,7 +20,7 @@ $var url : /
     <!-- news -->
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 section">
         <a href="/news"><h4>news</h4></a>
-        $for item in smartphones:
+        $for item in smartphones[:5]:
             $ model = item["model"].replace(' ','-').lower()
             <div class="news">
                 <a href="/smartphone/$model/$item['id']">
